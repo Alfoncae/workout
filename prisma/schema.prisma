@@ -1,0 +1,60 @@
+datasource db {
+  provider     = "mysql"
+  url          = env("DATABASE_URL")
+  relationMode = "prisma"
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model User {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  name      String?
+  password  String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  workouts Workout[]
+}
+
+model Workout {
+  id          String      @id @default(cuid())
+  title       String
+  description String?
+  category    Category
+  difficulty  Difficulty?
+  exercises   Exercise[]
+  assignedAt  DateTime
+  reps        Int?
+  sets        Int?
+  duration    Int?
+  createdAt   DateTime    @default(now())
+  User        User?       @relation(fields: [userId], references: [id])
+  userId      String?
+
+  @@index([userId])
+}
+
+model Exercise {
+  id        String   @id @default(cuid())
+  name      String
+  Workout   Workout? @relation(fields: [workoutId], references: [id], onDelete: Cascade)
+  workoutId String?
+
+  @@index([workoutId])
+}
+
+enum Category {
+  CARDIO
+  STRENGTH
+  SPORTS
+  FUNCTIONAL
+}
+
+enum Difficulty {
+  EASY
+  MODERATE
+  HARD
+}
