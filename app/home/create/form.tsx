@@ -81,10 +81,10 @@ function WorkoutForm() {
         if (duration) {
             data.duration = parseInt(duration);
         }
-        notify();
 
         const result = await createWorkout(data);
         if (result.error === null) {
+            notify();
             router.push("/home");
         }
     };
@@ -208,7 +208,7 @@ function WorkoutForm() {
                         ))}
                     </div>
                 </div>
-                <div className="flex gap-3">
+                <div className="flex flex-col sm:flex-row gap-3">
                     <FormField
                         control={form.control}
                         name="category"
@@ -273,7 +273,7 @@ function WorkoutForm() {
                         )}
                     />
                 </div>
-                <div className="flex gap-3">
+                <div className="flex flex-col sm:flex-row gap-3">
                     <Input
                         type="number"
                         placeholder="Reps (optional)"

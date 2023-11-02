@@ -118,10 +118,10 @@ function EditWorkoutForm({ workoutId }) {
         if (duration) {
             data.duration = parseInt(duration);
         }
-        notify();
 
         const result = await updateWorkout(data, workoutId);
         if (result.error === null) {
+            notify();
             router.push("/home");
         } else {
             console.log(result.error);
@@ -248,7 +248,7 @@ function EditWorkoutForm({ workoutId }) {
                         ))}
                     </div>
                 </div>
-                <div className="flex gap-3">
+                <div className="flex flex-col sm:flex-row gap-3">
                     <FormField
                         control={form.control}
                         name="category"
@@ -256,7 +256,7 @@ function EditWorkoutForm({ workoutId }) {
                             <FormItem className="w-full">
                                 <Select
                                     onValueChange={field.onChange}
-                                    value={enums?.category}
+                                    value={field.value}
                                 >
                                     <FormControl>
                                         <SelectTrigger>
@@ -288,7 +288,7 @@ function EditWorkoutForm({ workoutId }) {
                         render={({ field }) => (
                             <FormItem className="w-full">
                                 <Select
-                                    value={enums.difficulty}
+                                    value={field.value}
                                     onValueChange={field.onChange}
                                 >
                                     <FormControl>
@@ -313,8 +313,8 @@ function EditWorkoutForm({ workoutId }) {
                         )}
                     />
                 </div>
-                <div className="flex gap-3">
-                    <div className=" text-left">
+                <div className="flex flex-col sm:flex-row gap-3">
+                    <div className="text-left w-full">
                         <Label htmlFor="reps" className="text-slate-400">
                             Reps
                         </Label>
@@ -325,7 +325,7 @@ function EditWorkoutForm({ workoutId }) {
                             onChange={(e) => setReps(e.target.value)}
                         />
                     </div>
-                    <div className="text-left">
+                    <div className="text-left w-full">
                         <Label htmlFor="sets" className="text-slate-400">
                             Sets
                         </Label>
