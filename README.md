@@ -1,4 +1,16 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Workout Tracker
+
+    I've created an app that helps you log your workout's and keep track of them with nextjs.
+
+![LandingPage](./public/website-screenshot.png)
+
+Live website [Click Here](https://workout-ochre.vercel.app/)
+
+## Tech Stack for the app
+
+[![Stack](https://skillicons.dev/icons?i=ts,next,tailwind,prisma,planetscale,vercel)](https://skillicons.dev)
+
+<a href="https://authjs.dev" target="_blank"><img width="96px" src="https://authjs.dev/img/logo/logo-sm.png" /></a>
 
 ## Getting Started
 
@@ -24,8 +36,8 @@ This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-opti
 
 To learn more about Next.js, take a look at the following resources:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+-   [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
+-   [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
 
 You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
 
