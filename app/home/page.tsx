@@ -19,9 +19,9 @@ export default function Home() {
         if (session) {
             const { result, error } = await getData();
 
-            console.log(result);
             if (result.length > 0) {
                 setNoWorkouts(false);
+                setLoading(false);
             } else {
                 setNoWorkouts(true);
             }
@@ -37,7 +37,6 @@ export default function Home() {
                 console.log(error);
             }
         }
-        setLoading(false);
     };
 
     useEffect(() => {
