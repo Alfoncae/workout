@@ -10,7 +10,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 export default function Home() {
     const [workouts, setWorkouts] = useState([]);
     const [search, setSearch] = useState("");
-    const [noWorkouts, setNoWorkouts] = useState(true);
+    const [noWorkouts, setNoWorkouts] = useState<boolean>(null);
     const [loading, setLoading] = useState(true);
 
     const { data: session } = useSession();
@@ -19,8 +19,11 @@ export default function Home() {
         if (session) {
             const { result, error } = await getData();
 
+            console.log(result);
             if (result.length > 0) {
                 setNoWorkouts(false);
+            } else {
+                setNoWorkouts(true);
             }
             const searchedWorkouts = result?.filter((workout) => {
                 return (
@@ -70,12 +73,12 @@ export default function Home() {
                         />
                     );
                 })}
-                {noWorkouts === false && workouts.length === 0 && (
-                    <div className="w-[300px] h-[400px] flex flex-col justify-center sm:w-[600px] text-center">
-                        No Workouts match with the given search...
-                    </div>
-                )}
             </div>
+            {noWorkouts === false && workouts.length === 0 && (
+                <div className="flex flex-col justify-center text-center">
+                    No Workouts match with the given search...
+                </div>
+            )}
             {noWorkouts && (
                 <div className="text-center">You have no workouts</div>
             )}
