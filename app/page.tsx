@@ -1,14 +1,15 @@
-import { getServerSession } from "next-auth";
-import { authOptions } from "./api/auth/[...nextauth]/route";
 import { redirect } from "next/navigation";
 import { Button } from "@/components/ui/button";
+import { getUserSession } from "@/lib/session";
+import landingScreenshot from "@/public/landing-screenshot.png";
 import { MoveRight } from "lucide-react";
 import Link from "next/link";
+import Image from "next/image";
 
 export default async function Page() {
-    const session = await getServerSession(authOptions);
+    const session = await getUserSession();
 
-    if (session !== null) {
+    if (session !== undefined) {
         redirect("/home");
     } else
         return (
@@ -21,11 +22,19 @@ export default async function Page() {
                         workouts.
                     </h2>
                     <Link href={"/sign-in"}>
-                        <Button className="w-[200px] gap-6 hover:bg-slate-950 hover:text-slate-50 border">
+                        <Button className="w-[200px] gap-6 p-6 hover:bg-slate-950 hover:text-slate-50 border">
                             <div>Lets get Started!</div>
                             <MoveRight />
                         </Button>
                     </Link>
+                    <div className="mt-6 sm:h-[400px] sm:w-[640px] h-[200px] w-[320px]  border border-stone-100 relative">
+                        <Image
+                            className="object-cover"
+                            fill
+                            src={landingScreenshot}
+                            alt="Example Screenshot"
+                        />
+                    </div>
                 </div>
             </main>
         );

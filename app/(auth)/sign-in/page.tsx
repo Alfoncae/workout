@@ -1,30 +1,40 @@
-import Link from "next/link";
-import { SignInForm } from "./form";
-import { getServerSession } from "next-auth";
-import { authOptions } from "@/app/api/auth/[...nextauth]/route";
-import { redirect } from "next/navigation";
+"use client";
 
-export default async function SignInPage() {
-    const session = await getServerSession(authOptions);
+import Image from "next/image";
+import GoogleIcon from "@/public/google-logo.png";
+import { useState } from "react";
+import { signIn } from "next-auth/react";
+import clsx from "clsx";
 
-    if (session !== null) {
-        redirect("/home");
-    } else
-        return (
-            <div className="h-screen w-screen flex justify-center items-center">
-                <div className="sm:shadow-xl px-8 pb-8 pt-12 sm:border rounded space-y-12">
-                    <h1 className="font-semibold text-2xl">Log In</h1>
-                    <SignInForm />
-                    <p className="text-center">
-                        Need to create an account?{" "}
-                        <Link
-                            className="text-slate-500 hover:underline"
-                            href="/sign-up"
-                        >
-                            Sign up
-                        </Link>{" "}
-                    </p>
-                </div>
+const SignIn = () => {
+    const [loading, setLoading] = useState(false);
+
+    const handleSubmit = async () => {
+        setLoading(true);
+        await signIn("google", {
+            callbackUrl: "/home",
+        });
+        setLoading(false);
+    };
+
+    return (
+        <main className="flex flex-col items-center h-screen justify-center p-6 gap-3">
+            <h1 className="text-4xl text-center">Get Started!</h1>
+            <div
+                onClick={handleSubmit}
+                className="flex items-center outline-none gap-5 my-3 border border-white hover:opacity-75 rounded-md p-3 transition-all cursor-pointer"
+            >
+                <Image
+                    src={GoogleIcon}
+                    alt="google-icon"
+                    width={40}
+                    height={40}
+                    className={clsx(loading && "animate-spin")}
+                />
+                <p className="text-white text-xl ">Sign in with Google</p>
             </div>
-        );
-}
+        </main>
+    );
+};
+
+export default SignIn;

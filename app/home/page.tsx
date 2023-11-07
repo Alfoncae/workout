@@ -3,9 +3,9 @@
 import WorkoutCard from "@/components/WorkoutCard";
 import SearchBar from "@/components/SearchBar";
 import { useState, useEffect } from "react";
-import { useSession } from "next-auth/react";
 import getData from "@/prisma/calls/getData";
 import { Skeleton } from "@/components/ui/skeleton";
+import { useSession } from "next-auth/react";
 
 export default function Home() {
     const [workouts, setWorkouts] = useState([]);
@@ -24,6 +24,7 @@ export default function Home() {
                 setLoading(false);
             } else {
                 setNoWorkouts(true);
+                setLoading(false);
             }
             const searchedWorkouts = result?.filter((workout) => {
                 return (

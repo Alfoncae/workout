@@ -1,11 +1,10 @@
 "use server";
 
-import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import prisma from "@/lib/prisma";
-import { getServerSession } from "next-auth";
+import { getUserSession } from "@/lib/session";
 
 export default async function getData() {
-    const session = await getServerSession(authOptions);
+    const session = await getUserSession();
 
     let error = null;
     let result;
@@ -13,7 +12,7 @@ export default async function getData() {
     try {
         result = await prisma.workout.findMany({
             where: {
-                userId: session?.user?.id,
+                userId: session?.id,
             },
             include: {
                 exercises: true,

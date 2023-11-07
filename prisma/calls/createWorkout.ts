@@ -1,12 +1,11 @@
 "use server";
 
-import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import prisma from "@/lib/prisma";
+import { getUserSession } from "@/lib/session";
 import { TWorkoutSchema, workoutSchema } from "@/lib/types";
-import { getServerSession } from "next-auth";
 
 export default async function createWorkout(workout: TWorkoutSchema) {
-    const session = await getServerSession(authOptions);
+    const session = await getUserSession();
 
     let error = null;
     let result;
@@ -35,7 +34,7 @@ export default async function createWorkout(workout: TWorkoutSchema) {
                     difficulty: workout.difficulty,
                     duration: workout.duration,
                     assignedAt: workout.date,
-                    userId: session.user.id,
+                    userId: session?.id,
                 },
             });
 
